@@ -1,24 +1,17 @@
-// src/components/Button/Button.tsx
-import React from 'react';
+import styles from './LoadMoreBtn.module.css';
 
-interface ButtonProps {
-  onClick: () => void;
-  children: React.ReactNode; // Тип для вмісту кнопки (текст, іконки тощо)
-}
-
-const Button: React.FC<ButtonProps> = ({
-  onClick,
-  children,
-}) => {
+const LoadMoreBtn = ({ onClick }) => {
   return (
-    <button
-      type="button"
-      className="Button"
-      onClick={onClick}
-    >
-      {children}
-    </button>
+    <div className={styles.loadMoreContainer}>
+      <button
+        type="button"
+        className={styles.loadMoreButton}
+        onClick={onClick}
+      >
+        Load more
+      </button>
+    </div>
   );
 };
 
-export default Button;
+export default LoadMoreBtn;

@@ -1,48 +1,52 @@
-// src/components/Modal/Modal.tsx
-import React, { useEffect, MouseEvent } from 'react';
-import { createPortal } from 'react-dom';
+import Modal from 'react-modal';
+import styles from './ImageModal.module.css';
 
-interface ModalProps {
-  onClose: () => void;
-  children: React.ReactNode;
-}
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    zIndex: 1000,
+  },
+};
 
-const modalRoot = document.querySelector(
-  '#modal-root'
-) as HTMLElement; // Явно вказуємо тип елемента
+Modal.setAppElement('#root');
 
-const Modal: React.FC<ModalProps> = ({
-  onClose,
-  children,
-}) => {
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Escape') {
-        onClose();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [onClose]);
-
-  const handleBackdropClick = (
-    event: MouseEvent<HTMLDivElement>
-  ) => {
-    // Типізуємо подію кліку
-    if (event.currentTarget === event.target) {
+const ImageModal = ({ imageUrl, onClose }) => {
+  const handleKeyDown = (event) => {
+    if (event.code === 'Escape') {
       onClose();
     }
   };
 
-  return createPortal(
-    <div className="Overlay" onClick={handleBackdropClick}>
-      <div className="Modal">{children}</div>
-    </div>,
-    modalRoot
+  return (
+    <Modal
+      isOpen={!!imageUrl}
+      onRequestClose={onClose}
+      style={customStyles}
+      contentLabel="Image Modal"
+      onKeyDown={handleKeyDown}
+    >
+      <img
+        src={imageUrl}
+        alt=""
+        className={styles.modalImage}
+      />
+      <button
+        type="button"
+        className={styles.closeButton}
+        onClick={onClose}
+      >
+        Close
+      </button>
+    </Modal>
   );
 };
 
-export default Modal;
+export default ImageModal;

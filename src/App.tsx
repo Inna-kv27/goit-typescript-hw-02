@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { CircleLoader } from 'react-spinners';
-import SearchBar from './components/SearchBar/SearchBar.jsx';
-import ImageGallery from './components/ImageGallery/ImageGallery.jsx';
-import ErrorMessage from './components/ErrorMessage/ErrorMessage.jsx';
-import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn.jsx';
-import ImageModal from './components/ImageModal/ImageModal.jsx';
+import SearchBar from './components/SearchBar/SearchBar.tsx';
+import ImageGallery from './components/ImageGallery/ImageGallery.tsx';
+import ErrorMessage from './components/ErrorMessage/ErrorMessage.tsx';
+import Button from './components/Button/Button.tsx';
+import Modal from './components/Modal/Modal.tsx';
 import { fetchImages } from './services/api';
 import styles from './App.module.css';
 

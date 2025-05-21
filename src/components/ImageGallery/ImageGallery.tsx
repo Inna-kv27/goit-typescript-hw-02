@@ -1,4 +1,4 @@
-import ImageCard from '../ImageCard/ImageCard.jsx';
+import ImageCard from '../ImageCard/ImageCard.tsx';
 import styles from './ImageGallery.module.css';
 
 const ImageGallery = ({ images, onImageClick }) => {
