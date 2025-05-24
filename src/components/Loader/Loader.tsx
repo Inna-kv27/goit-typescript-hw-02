@@ -1,13 +1,19 @@
-import { CircleLoader } from 'react-spinners';
+import React from 'react';
+import { ThreeDots } from 'react-loader-spinner';
 import styles from './Loader.module.css';
 
-const Loader = () => {
+const Loader: React.FC = () => {
   return (
     <div className={styles.loader}>
-      <CircleLoader
+      <ThreeDots
+        visible={true}
+        height="80"
+        width="80"
         color="#3f51b5"
-        size={80}
-        aria-label="loading"
+        radius="9"
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
       />
     </div>
   );

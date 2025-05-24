@@ -1,17 +1,23 @@
-import styles from './LoadMoreBtn.module.css';
+import React from 'react';
+import styles from './Button.module.css';
+interface ButtonProps {
+  onClick: () => void;
+  children: React.ReactNode;
+}
 
-const LoadMoreBtn = ({ onClick }) => {
+const Button: React.FC<ButtonProps> = ({
+  onClick,
+  children,
+}) => {
   return (
-    <div className={styles.loadMoreContainer}>
-      <button
-        type="button"
-        className={styles.loadMoreButton}
-        onClick={onClick}
-      >
-        Load more
-      </button>
-    </div>
+    <button
+      type="button"
+      className={styles.button}
+      onClick={onClick}
+    >
+      {children}
+    </button>
   );
 };
 
-export default LoadMoreBtn;
+export default Button;

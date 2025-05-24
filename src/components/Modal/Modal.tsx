@@ -1,5 +1,11 @@
+import React, { useEffect, KeyboardEvent } from 'react';
 import Modal from 'react-modal';
-import styles from './ImageModal.module.css';
+import styles from './Modal.module.css';
+
+interface ImageModalProps {
+  imageUrl: string;
+  onClose: () => void;
+}
 
 const customStyles = {
   content: {
@@ -9,6 +15,9 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    border: 'none',
+    padding: '0',
+    overflow: 'hidden',
   },
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -18,12 +27,23 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const ImageModal = ({ imageUrl, onClose }) => {
-  const handleKeyDown = (event) => {
-    if (event.code === 'Escape') {
-      onClose();
-    }
-  };
+const ImageModal: React.FC<ImageModalProps> = ({
+  imageUrl,
+  onClose,
+}) => {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
 
   return (
     <Modal
@@ -31,11 +51,10 @@ const ImageModal = ({ imageUrl, onClose }) => {
       onRequestClose={onClose}
       style={customStyles}
       contentLabel="Image Modal"
-      onKeyDown={handleKeyDown}
     >
       <img
         src={imageUrl}
-        alt=""
+        alt="Large image"
         className={styles.modalImage}
       />
       <button

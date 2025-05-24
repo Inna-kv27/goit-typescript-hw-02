@@ -1,9 +1,9 @@
-// src/components/ImageGalleryItem/ImageGalleryItem.tsx
 import React from 'react';
-import { Image } from '../../types/image'; // Імпортуємо інтерфейс Image
+import { UnsplashImage } from '../../types/image';
+import styles from './ImageGalleryItem.module.css';
 
 interface ImageGalleryItemProps {
-  image: Image;
+  image: UnsplashImage;
   onImageClick: (largeImageUrl: string) => void;
 }
 
@@ -12,17 +12,17 @@ const ImageGalleryItem: React.FC<ImageGalleryItemProps> = ({
   onImageClick,
 }) => {
   const handleClick = () => {
-    onImageClick(image.largeImageURL);
+    onImageClick(image.urls.full);
   };
 
   return (
-    <li className="ImageGalleryItem" onClick={handleClick}>
+    <div className={styles.imageCard} onClick={handleClick}>
       <img
-        src={image.webformatURL}
-        alt={image.tags}
-        className="ImageGalleryItem-image"
+        src={image.urls.small}
+        alt={image.alt_description || 'Image'}
+        className={styles.image}
       />
-    </li>
+    </div>
   );
 };
 

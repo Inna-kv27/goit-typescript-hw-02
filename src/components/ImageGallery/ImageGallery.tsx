@@ -1,16 +1,24 @@
-import ImageCard from '../ImageCard/ImageCard.tsx';
+import React from 'react';
+import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
+import { UnsplashImage } from '../../types/image';
 import styles from './ImageGallery.module.css';
 
-const ImageGallery = ({ images, onImageClick }) => {
+interface ImageGalleryProps {
+  images: UnsplashImage[];
+  onImageClick: (largeImageUrl: string) => void;
+}
+
+const ImageGallery: React.FC<ImageGalleryProps> = ({
+  images,
+  onImageClick,
+}) => {
   return (
     <ul className={styles.imageGallery}>
       {images.map((image) => (
         <li key={image.id} className={styles.galleryItem}>
-          <ImageCard
-            webformatURL={image.urls.small}
-            largeImageURL={image.urls.regular}
-            alt={image.alt_description}
-            onClick={() => onImageClick(image.urls.full)}
+          <ImageGalleryItem
+            image={image}
+            onImageClick={onImageClick}
           />
         </li>
       ))}

@@ -40,3 +40,17 @@
 .read-the-docs {
   color: #888;
 }
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 16px;
+  padding-bottom: 24px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+}
