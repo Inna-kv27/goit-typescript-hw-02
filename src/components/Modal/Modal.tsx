@@ -1,70 +1,48 @@
-import React, { useEffect, KeyboardEvent } from 'react';
-import Modal from 'react-modal';
+import React from 'react';
 import styles from './Modal.module.css';
-
 interface ImageModalProps {
   imageUrl: string;
   onClose: () => void;
 }
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    border: 'none',
-    padding: '0',
-    overflow: 'hidden',
-  },
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    zIndex: 1000,
-  },
-};
-
-Modal.setAppElement('#root');
-
 const ImageModal: React.FC<ImageModalProps> = ({
   imageUrl,
   onClose,
 }) => {
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.code === 'Escape') {
-        onClose();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [onClose]);
-
+  // console.log("ImageModal props:", imageUrl); // Для налагодження
   return (
-    <Modal
-      isOpen={!!imageUrl}
-      onRequestClose={onClose}
-      style={customStyles}
-      contentLabel="Image Modal"
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000,
+      }}
+      onClick={onClose}
     >
       <img
         src={imageUrl}
         alt="Large image"
-        className={styles.modalImage}
+        style={{ maxWidth: '90%', maxHeight: '90%' }}
+        onClick={(e) => e.stopPropagation()}
       />
       <button
-        type="button"
-        className={styles.closeButton}
         onClick={onClose}
+        style={{
+          position: 'absolute',
+          top: '10px',
+          right: '10px',
+        }}
       >
-        Close
+        X
       </button>
-    </Modal>
+    </div>
   );
 };
 

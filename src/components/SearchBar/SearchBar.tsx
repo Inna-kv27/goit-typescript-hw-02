@@ -3,7 +3,7 @@ import React, {
   ChangeEvent,
   FormEvent,
 } from 'react';
-import toast from 'react-hot-toast';
+
 import styles from './SearchBar.module.css';
 
 interface SearchBarProps {
