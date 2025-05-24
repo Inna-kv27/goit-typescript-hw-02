@@ -4,15 +4,15 @@ import { UnsplashApiResponse } from '../types/image.ts';
 const API_KEY =
   'ZromXuc4KLg-EaBhN7hhFghXlYnV31pPDizBcyRwx9Y';
 
-axios.defaults.baseURL = 'https://api.unsplash.com/';
+const BASE_API_URL = 'https://api.unsplash.com/';
 
 export const fetchImages = async (
   query: string,
   page: number
-): Promise<UnsplashApiResponse> => {
+) => {
   try {
     const response = await axios.get<UnsplashApiResponse>(
-      '/search/photos',
+      `${BASE_API_URL}search/photos`,
       {
         params: {
           query: query,
