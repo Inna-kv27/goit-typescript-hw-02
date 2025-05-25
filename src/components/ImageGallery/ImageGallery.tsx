@@ -1,11 +1,10 @@
 import React from 'react';
-import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
-import { UnsplashImage } from '../../types/image';
+import { UnsplashImage } from '../../types/image.ts';
 import styles from './ImageGallery.module.css';
 
 interface ImageGalleryProps {
   images: UnsplashImage[];
-  onImageClick: (largeImageUrl: string) => void;
+  onImageClick?: (imageUrl: string) => void;
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({
@@ -13,12 +12,18 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
   onImageClick,
 }) => {
   return (
-    <ul className={styles.imageGallery}>
+    <ul className={styles.gallery}>
       {images.map((image) => (
-        <li key={image.id} className={styles.galleryItem}>
-          <ImageGalleryItem
-            image={image}
-            onImageClick={onImageClick}
+        <li key={image.id}>
+          <img
+            src={image.urls.small}
+            alt={image.alt_description || 'Image'}
+            onClick={
+              onImageClick
+                ? () => onImageClick(image.urls.full)
+                : undefined
+            }
+            className={styles.imageGalleryItemImage}
           />
         </li>
       ))}
