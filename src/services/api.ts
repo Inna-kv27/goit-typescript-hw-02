@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { UnsplashApiResponse } from '../types/image.ts';
 
-const API_KEY =
-  'ZromXuc4KLg-EaBhN7hhFghXlYnV31pPDizBcyRwx9Y';
+const API_KEY: string = import.meta.env
+  .VITE_UNSPLASH_API_KEY;
 
 const BASE_API_URL = 'https://api.unsplash.com/';
 
