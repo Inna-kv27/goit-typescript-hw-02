@@ -4,7 +4,7 @@ import { UnsplashApiResponse } from '../types/image.ts';
 const API_KEY: string = import.meta.env
   .VITE_UNSPLASH_API_KEY;
 
-const BASE_API_URL = 'https://api.unsplash.com/';
+const BASE_API_URL: string = 'https://api.unsplash.com';
 
 export const fetchImages = async (
   query: string,
