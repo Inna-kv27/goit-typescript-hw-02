@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react-swc'; // Використовуємо -s
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react()],
-    base: '/goit-typescript-hw-02/', // Це для GitHub Pages
+    base: '/',
 });
