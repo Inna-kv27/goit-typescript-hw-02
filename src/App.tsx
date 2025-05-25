@@ -1,20 +1,16 @@
-// src/App.tsx
 import { useState, useEffect, useCallback } from 'react';
 
 import SearchBar from './components/SearchBar/SearchBar.tsx';
 import ImageGallery from './components/ImageGallery/ImageGallery.tsx';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage.tsx';
 import Button from './components/Button/Button.tsx';
-// Ці імпорти залишаються закоментованими, якщо ви не додаєте функціонал модалки/лоадера
-// import ImageModal from './components/Modal/Modal.tsx';
-// import Loader from './components/Loader/Loader.tsx';
 
 import { fetchImages } from './services/api.ts';
 import {
   UnsplashImage,
   UnsplashApiResponse,
 } from './types/image.ts';
-import styles from './App.module.css'; // Переконайтеся, що у вас є цей файл CSS
+import styles from './App.module.css';
 
 type Status = 'idle' | 'pending' | 'resolved' | 'rejected';
 
@@ -24,10 +20,6 @@ function App() {
   const [page, setPage] = useState<number>(1);
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string | null>(null);
-
-  // Стейт для модального вікна, поки закоментовано
-  // const [showModal, setShowModal] = useState<boolean>(false);
-  // const [modalImage, setModalImage] = useState<string>('');
 
   const [totalPages, setTotalPages] = useState<number>(0);
 
@@ -67,7 +59,6 @@ function App() {
         setStatus('resolved');
       }
     } catch (err) {
-      // Виправлений блок catch з перевіркою типу
       if (err instanceof Error) {
         console.error(
           'Error retrieving images:',
@@ -94,15 +85,13 @@ function App() {
 
   const handleSearchSubmit = (newQuery: string) => {
     if (newQuery.trim() === '') {
-      // Якщо рядок запиту порожній, не виконуємо пошук
       return;
     }
-    // Перевіряємо, чи змінився запит, щоб скинути пагінацію та зображення
     if (newQuery !== query) {
       setQuery(newQuery);
-      setPage(1); // Скидаємо сторінку на 1 при новому пошуку
-      setError(null); // Скидаємо помилку
-      setImages([]); // Очищаємо зображення
+      setPage(1);
+      setError(null);
+      setImages([]);
     }
   };
 
@@ -110,51 +99,24 @@ function App() {
     setPage((prevPage) => prevPage + 1);
   };
 
-  // Функції для модального вікна, поки закоментовані
-  // const openModal = (imageUrl: string) => {
-  //   setModalImage(imageUrl);
-  //   setShowModal(true);
-  // };
-
-  // const closeModal = () => {
-  //   setShowModal(false);
-  //   setModalImage('');
-  // };
-
   const showLoadMoreButton =
     images.length > 0 &&
     page < totalPages &&
-    status !== 'pending'; // Показуємо кнопку, якщо є зображення, не остання сторінка і не йде завантаження
+    status !== 'pending';
 
   return (
     <div className={styles.app}>
       <SearchBar onSubmit={handleSearchSubmit} />
 
-      {/* Loader поки що закоментований */}
-      {/* {status === 'pending' && <Loader />} */}
-
       {error && <ErrorMessage message={error} />}
 
       {images.length > 0 && (
-        <ImageGallery
-          images={images}
-          // Пропс onImageClick закоментовано, оскільки ImageGallery тепер не вимагає його обов'язково
-          // і модальне вікно не активне
-          // onImageClick={openModal}
-        />
+        <ImageGallery images={images} />
       )}
 
       {showLoadMoreButton && (
         <Button onClick={handleLoadMore}>Load more</Button>
       )}
-
-      {/* Модальне вікно поки що закоментоване */}
-      {/* {showModal && (
-        <ImageModal
-          imageUrl={modalImage}
-          onClose={closeModal}
-        />
-      )} */}
     </div>
   );
 }

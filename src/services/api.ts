@@ -12,7 +12,7 @@ export const fetchImages = async (
 ) => {
   try {
     const response = await axios.get<UnsplashApiResponse>(
-      `${BASE_API_URL}search/photos`,
+      `${BASE_API_URL}/search/photos`,
       {
         params: {
           query: query,
