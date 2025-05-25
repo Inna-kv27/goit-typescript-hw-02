@@ -5,6 +5,8 @@ import React, {
 } from 'react';
 
 import styles from './SearchBar.module.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface SearchBarProps {
   onSubmit: (query: string) => void;
@@ -52,6 +54,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
           Search
         </button>
       </form>
+      <ToastContainer />{' '}
+      {/* <--- ЦЕЙ КОМПОНЕНТ ДЛЯ ВІДОБРАЖЕННЯ СПОВІЩЕНЬ */}
     </header>
   );
 };
